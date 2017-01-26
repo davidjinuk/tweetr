@@ -6,6 +6,7 @@ const express       = require('express');
 const tweetsRoutes  = express.Router();
 
 module.exports = function(DataHelpers) {
+  console.log(DataHelpers)
 
   tweetsRoutes.get("/", function(req, res) {
     DataHelpers.getTweets((err, tweets) => {
