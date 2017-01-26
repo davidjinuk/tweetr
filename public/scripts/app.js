@@ -8,6 +8,11 @@
 //document ready
 $(function () {
 
+  $(".slide-toggle").click(function() {
+    $(".new-tweet").slideToggle();
+    $(".text-input").focus();
+  });
+
   //NEW WAY TO FULLFILL REQUIREMENTS FOR FORM INPUT
 
   // $(this).validate ({

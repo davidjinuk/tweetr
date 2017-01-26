@@ -22,3 +22,13 @@
   font-size: 2em;
   line-height: 80px;
 }
+
+#nav-bar .slide-toggle {
+  float: right;
+  width: 200px;
+  height: 60px;
+  vertical-align: middle;
+  margin: 0.5em;
+  border-radius: 10px;
+  background-color: #eee;
+}
