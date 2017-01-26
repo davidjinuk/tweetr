@@ -116,7 +116,7 @@ $(function () {
     $(footer).append(time);
 
     //append all the information
-    $(".tweets-container").append($tweet);
+    $(".tweets-container").prepend($tweet);
 
     return $tweet;
   }
