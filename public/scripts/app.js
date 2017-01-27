@@ -119,6 +119,5 @@ $(function () {
 
     return $tweet;
   }
-  // renderTweets(tweetData);
 
 });
