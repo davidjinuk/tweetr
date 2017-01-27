@@ -1,17 +1,17 @@
 article {
-  background-color: #eee;
   border: 2px solid #ccc;
-  margin: 1em 2em 1em 2em;
-  padding: 5px;
+  background-color: #eee;
   border-radius: 10px;
+  margin: 1em 2em 1em 2em;
   overflow: hidden;
+  padding: 5px;
 }
 article header {
   background-color: #DCDCDC;
-  margin: 0 auto;
-  width: 100%;
-  padding: 2.5px;
   border-radius: 10px;
+  margin: 0 auto;
+  padding: 2.5px;
+  width: 100%;
 }
 
 header h2 {
@@ -24,19 +24,22 @@ header h6 {
 }
 
 header img {
-  height: 50px;
-  width: 50px;
+  border-radius: 10px;
+  display: block;
   float: left;
+  height: 50px;
+  margin: 0.5em;
   vertical-align: middle;
+  width: 50px;
 }
 
 article footer {
-  bottom: 0;
   border-top: 0.5px solid black;
-  padding-top: 0;
+  bottom: 0;
   padding-bottom: 0;
+  padding-top: 0;
   margin-top: 0;
   margin-bottom: 0;
-  width: 100%;
   vertical-align: bottom;
+  width: 100%;
 }

@@ -1,21 +1,21 @@
 section.new-tweet {
   border: 2px solid #ccc;
+  background-color: #eee;
+  border-radius: 10px;
   margin: auto 2em auto;
   padding: 10px;
-  border-radius: 10px;
-  background-color: #eee;
 }
 
 section.new-tweet h2 {
+  border-bottom: 1.5px solid black;
   margin: 0;
   padding: 0;
-  border-bottom: 1.5px solid black;
 }
 
 section.new-tweet textarea {
-  width: 100%;
   margin-top: 20px;
   padding: 5px;
+  width: 100%;
 }
 
 section.new-tweet .counter {
@@ -24,7 +24,7 @@ section.new-tweet .counter {
 }
 
 section.new-tweet .invalid-counter {
+  color: red;
   float: right;
   padding: 3.5px;
-  color: red;
 }

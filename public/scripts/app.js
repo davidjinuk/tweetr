@@ -39,7 +39,7 @@ $(function () {
     var text = $(this).serialize();
     text = text.slice(5);
 
-    if (text.length === null || text === "") {
+    if (text.length === null || text === "" || " ") {
       alert("Empty Tweet!");
     } else if (text.length > 140){
         alert("Too many characters!");
@@ -51,6 +51,7 @@ $(function () {
         success: function (post) {
           console.log("Success: ", post);
           loadTweets();
+          $(".text-input").val("");
         }
       });
     }
