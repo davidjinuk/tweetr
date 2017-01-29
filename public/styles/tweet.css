@@ -6,12 +6,35 @@ article {
   overflow: hidden;
   padding: 5px;
 }
+
+article:hover .icons{
+  opacity: 1;
+  transition: 300ms;
+}
+
 article header {
   background-color: #DCDCDC;
   border-radius: 10px;
   margin: 0 auto;
   padding: 2.5px;
   width: 100%;
+}
+
+article footer {
+  border-top: 0.5px solid black;
+  bottom: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: bottom;
+  width: 100%;
+}
+
+article .icons {
+  float: right;
+  opacity: 0;
+  transition: 300ms;
 }
 
 header h2 {
@@ -31,15 +54,4 @@ header img {
   margin: 0.5em;
   vertical-align: middle;
   width: 50px;
-}
-
-article footer {
-  border-top: 0.5px solid black;
-  bottom: 0;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  vertical-align: bottom;
-  width: 100%;
 }

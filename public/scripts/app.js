@@ -1,9 +1,3 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
 //document ready
 $(function () {
 
@@ -12,7 +6,7 @@ $(function () {
     $(".text-input").focus();
   });
 
-  //NEW WAY TO FULLFILL REQUIREMENTS FOR FORM INPUT
+  //ALTERNATIVE TO ALERT USER OF BAD TWEETS
 
   // $(this).validate ({
   //   rules: {
@@ -36,21 +30,21 @@ $(function () {
     event.preventDefault();
 
     //user tweet
-    var text = $(this).serialize();
-    text = text.slice(5);
+    var text = $(".text-input").val().trim();
 
-    if (text.length === null || text === "" || " ") {
+    if (text.length === null || text === "") {
       alert("Empty Tweet!");
-    } else if (text.length > 140){
-        alert("Too many characters!");
+    } else if (text.length > 140) {
+      alert("Too many characters!");
     } else {
+      // Start up spinner
       $.ajax ({
         url: "/tweets",
         method: "POST",
         data: $(this).serialize(),
         success: function (post) {
-          console.log("Success: ", post);
           loadTweets();
+          // stop spinner
           $(".text-input").val("");
         }
       });
@@ -62,40 +56,59 @@ $(function () {
       url: "/tweets",
       method: "GET",
       success: function (post) {
-        console.log("Success: ", post);
         renderTweets(post);
       }
     });
   }
-  loadTweets();
+
 
   //send each user data to createTweetElement
   function renderTweets(tweetData) {
     $(".tweets-container").empty();
     for (var i = 0; i < tweetData.length; i++) {
-      var user = tweetData[i];
+      var tweet = tweetData[i];
 
-      createTweetElement(user)
+      const $tweet = createTweetElement(tweet)
+      //append all the information
+      $(".tweets-container").prepend($tweet);
     }
   }
 
   function createTweetElement(tweet) {
-    //elements
-    var $tweet = $("<article>").addClass("tweet");
-    var header = $("<header>");
-    var image = $("<img>");
-    var name = $("<h2>");
-    var handle = $("<h6>");
-    var content = $("<p>");
-    var footer = $("<footer>");
-    var time = $("<time>");
+
+    // ALTERNATIVE WAY TO CODE EVERYTHING OUT
+    // let $tweet = `
+    // <article class="tweet">
+    //   <header>
+    //     <img src="${tweet.user.avatars.small}" />
+    //     <h2>${tweet.user.name}</h2>
+    //   </header>
+    // </article>
+    // `;
+
+    // elements
+    let $tweet = $("<article>").addClass("tweet");
+    let header = $("<header>");
+    let image = $("<img>");
+    let name = $("<h2>");
+    let handle = $("<h6>");
+    let content = $("<p>");
+    let footer = $("<footer>");
+    let time = $("<time>");
+    // new icons
+    let icons = $("<div>").addClass("icons");
+
+    //icons flag share like
+    const flag = $("<i>").addClass("fa fa-flag");
+    const share = $("<i>").addClass("fa fa-share-alt");
+    const like = $("<i>").addClass("fa fa-heart");
 
     //user data
-    var userName = tweet.user.name;
-    var userAvatar = tweet.user.avatars.small;
-    var userHandle = tweet.user.handle;
-    var userContent = tweet.content.text;
-    var userCreated = tweet.created_at;
+    const userName = tweet.user.name;
+    const userAvatar = tweet.user.avatars.small;
+    const userHandle = tweet.user.handle;
+    const userContent = tweet.content.text;
+    const userCreated = tweet.created_at;
 
     //header
     $($tweet).append(header);
@@ -114,11 +127,14 @@ $(function () {
     $($tweet).append(footer);
     $(time).text(userCreated);
     $(footer).append(time);
-
-    //append all the information
-    $(".tweets-container").prepend($tweet);
+    $(icons).append(flag);
+    $(icons).append(share);
+    $(icons).append(like);
+    $(footer).append(icons);
 
     return $tweet;
   }
+
+  loadTweets();
 
 });

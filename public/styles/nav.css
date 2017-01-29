@@ -10,12 +10,6 @@
   z-index: 1;
 }
 
-#nav-bar .logo {
-   float: left;
-   height: 80px;
-   width: 80px;
-}
-
 #nav-bar .header {
   float: left;
   font-size: 2em;
@@ -23,12 +17,23 @@
   padding-left: 10px;
 }
 
+#nav-bar .logo {
+   float: left;
+   height: 80px;
+   width: 80px;
+}
+
 #nav-bar .slide-toggle {
   background-color: #eee;
   border-radius: 10px;
   float: right;
+  font-size: 2em;
   height: 60px;
-  margin: 0.5em;
+  margin: 10px;
   vertical-align: middle;
   width: 200px;
+}
+
+#nav-bar .slide-toggle:hover {
+  background-color: white;
 }
