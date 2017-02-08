@@ -1,0 +1,34 @@
+TWEETER APP EVAL
+
+create padding for the buttons
+  select <i>
+
+create 10 days ago
+  use current time stamp to calculate
+  currently unix time stamp in seconds
+
+
+
+
+
+Mentor Comments:
+
+remove all comments not necessary
+any unused code needs to be removed
+
+keep variable naming consistent
+  CONST - never reassign
+
+use es6 template
+  easier to read and looks like html
+
+REMEMBER TO DECLARE FUNCTION BEFORE INVOKING IN ALL CASES
+
+Keep to one coding style throughout project
+  USE ESLINT to check style
+  can use with text editor
+
+make sure to replace reoccuring text with a variable
+  also to improve speed
+
+REMEMBER SPACING!

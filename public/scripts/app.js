@@ -1,91 +1,45 @@
-//document ready
 $(function () {
+
+  function approximateTime(unixTime) {
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = Date.now() - unixTime;
+
+    if (elapsed < msPerMinute) {
+         return Math.round(elapsed/1000) + ' seconds ago';
+    }
+
+    else if (elapsed < msPerHour) {
+         return Math.round(elapsed/msPerMinute) + ' minutes ago';
+    }
+
+    else if (elapsed < msPerDay ) {
+         return Math.round(elapsed/msPerHour ) + ' hours ago';
+    }
+
+    else if (elapsed < msPerMonth) {
+        return Math.round(elapsed/msPerDay) + ' days ago';
+    }
+
+    else if (elapsed < msPerYear) {
+        return Math.round(elapsed/msPerMonth) + ' months ago';
+    }
+
+    else {
+        return Math.round(elapsed/msPerYear ) + ' years ago';
+    }
+  }
 
   $(".slide-toggle").click(function() {
     $(".new-tweet").slideToggle();
     $(".text-input").focus();
   });
 
-  //ALTERNATIVE TO ALERT USER OF BAD TWEETS
-
-  // $(this).validate ({
-  //   rules: {
-  //     text: {
-  //       required: true,
-  //       maxlength: 140
-  //     },
-  //     messages: {
-  //       text: {
-  //         required: "Empty Tweet!",
-  //         maxlength: "Your tweet is too long!"
-  //       },
-  //       submitHandler: function(form) {
-  //         form.submit();
-  //       }
-  //     }
-  //   }
-  // });
-
-  $("#tweet-submit").on("submit", function (event) {
-    event.preventDefault();
-
-    //user tweet
-    var text = $(".text-input").val().trim();
-
-    if (text.length === null || text === "") {
-      alert("Empty Tweet!");
-    } else if (text.length > 140) {
-      alert("Too many characters!");
-    } else {
-      // Start up spinner
-      $.ajax ({
-        url: "/tweets",
-        method: "POST",
-        data: $(this).serialize(),
-        success: function (post) {
-          loadTweets();
-          // stop spinner
-          $(".text-input").val("");
-        }
-      });
-    }
-  });
-
-  function loadTweets() {
-    $.ajax ({
-      url: "/tweets",
-      method: "GET",
-      success: function (post) {
-        renderTweets(post);
-      }
-    });
-  }
-
-
-  //send each user data to createTweetElement
-  function renderTweets(tweetData) {
-    $(".tweets-container").empty();
-    for (var i = 0; i < tweetData.length; i++) {
-      var tweet = tweetData[i];
-
-      const $tweet = createTweetElement(tweet)
-      //append all the information
-      $(".tweets-container").prepend($tweet);
-    }
-  }
-
   function createTweetElement(tweet) {
-
-    // ALTERNATIVE WAY TO CODE EVERYTHING OUT
-    // let $tweet = `
-    // <article class="tweet">
-    //   <header>
-    //     <img src="${tweet.user.avatars.small}" />
-    //     <h2>${tweet.user.name}</h2>
-    //   </header>
-    // </article>
-    // `;
-
     // elements
     let $tweet = $("<article>").addClass("tweet");
     let header = $("<header>");
@@ -108,7 +62,7 @@ $(function () {
     const userAvatar = tweet.user.avatars.small;
     const userHandle = tweet.user.handle;
     const userContent = tweet.content.text;
-    const userCreated = tweet.created_at;
+    const userCreated = approximateTime(tweet.created_at);
 
     //header
     $($tweet).append(header);
@@ -135,6 +89,52 @@ $(function () {
     return $tweet;
   }
 
-  loadTweets();
+  //send each user data to createTweetElement
+  function renderTweets(tweetData) {
+    $(".tweets-container").empty();
+    for (let i = 0; i < tweetData.length; i++) {
+      let tweet = tweetData[i];
 
+      const $tweet = createTweetElement(tweet)
+      //append all the information
+      $(".tweets-container").prepend($tweet);
+    }
+  }
+
+  function loadTweets() {
+    $.ajax ({
+      url: "/tweets",
+      method: "GET",
+      success: function (post) {
+        renderTweets(post);
+      }
+    });
+  }
+
+  $("#tweet-submit").on("submit", function (event) {
+    event.preventDefault();
+
+    //user tweet
+    let text = $(".text-input").val().trim();
+
+    if (text.length === null || text === "") {
+      alert("Empty Tweet!");
+    } else if (text.length > 140) {
+      alert("Too many characters!");
+    } else {
+      // Start up spinner
+      $.ajax ({
+        url: "/tweets",
+        method: "POST",
+        data: $(this).serialize(),
+        success: function (post) {
+          loadTweets();
+          // stop spinner
+          $(".text-input").val("");
+        }
+      });
+    }
+  });
+
+  loadTweets();
 });
